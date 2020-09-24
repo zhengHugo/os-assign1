@@ -25,8 +25,7 @@ public class Client extends Thread {
   /**
    * Constructor method of Client class
    *
-   * @return
-   * @param
+   * @param operation client operation
    */
   Client(String operation) {
     if (operation.equals("sending")) {
@@ -54,7 +53,6 @@ public class Client extends Thread {
    * Accessor method of Client class
    *
    * @return numberOfTransactions
-   * @param
    */
   public int getNumberOfTransactions() {
     return numberOfTransactions;
@@ -63,8 +61,7 @@ public class Client extends Thread {
   /**
    * Mutator method of Client class
    *
-   * @return
-   * @param nbOfTrans
+   * @param nbOfTrans number of transaction
    */
   public void setNumberOfTransactions(int nbOfTrans) {
     numberOfTransactions = nbOfTrans;
@@ -74,7 +71,6 @@ public class Client extends Thread {
    * Accessor method of Client class
    *
    * @return clientOperation
-   * @param
    */
   public String getClientOperation() {
     return clientOperation;
@@ -83,8 +79,7 @@ public class Client extends Thread {
   /**
    * Mutator method of Client class
    *
-   * @return
-   * @param operation
+   * @param operation client operation
    */
   public void setClientOperation(String operation) {
     clientOperation = operation;
@@ -93,8 +88,6 @@ public class Client extends Thread {
   /**
    * Reading of the transactions from an input file
    *
-   * @return
-   * @param
    */
   public void readTransactions() {
     Scanner inputStream = null; /* Transactions input file stream */
@@ -133,8 +126,6 @@ public class Client extends Thread {
   /**
    * Sending the transactions to the server
    *
-   * @return
-   * @param
    */
   public void sendTransactions() {
     int i = 0; /* index of transaction array */
@@ -157,8 +148,7 @@ public class Client extends Thread {
   /**
    * Receiving the completed transactions from the server
    *
-   * @return
-   * @param transact
+   * @param transact transaction
    */
   public void receiveTransactions(Transactions transact) {
     int i = 0; /* Index of transaction array */
@@ -182,7 +172,6 @@ public class Client extends Thread {
    * Create a String representation based on the Client Object
    *
    * @return String representation
-   * @param
    */
   public String toString() {
     return ("\n client IP "
@@ -196,8 +185,6 @@ public class Client extends Thread {
   /**
    * Code for the run method
    *
-   * @return
-   * @param
    */
   public void run() {
     Transactions transact = new Transactions();

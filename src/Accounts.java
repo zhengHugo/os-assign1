@@ -9,7 +9,7 @@
  *
  * @author Kerly Titus
  */
-public class Accounts extends Thread {
+public class Accounts {
 
   private String accountNumber; /* Unique account number */
   private String accountType; /* chequing, saving, credit */
@@ -20,8 +20,6 @@ public class Accounts extends Thread {
   /**
    * Constructor method of Accounts class
    *
-   * @return
-   * @param
    */
   Accounts() {
     accountNumber = " ";
@@ -35,7 +33,6 @@ public class Accounts extends Thread {
    * Accessor method of Accounts class
    *
    * @return accountNumber
-   * @param
    */
   public String getAccountNumber() {
     return accountNumber;
@@ -44,8 +41,7 @@ public class Accounts extends Thread {
   /**
    * Mutator method of Accounts class
    *
-   * @return
-   * @param accNumber
+   * @param accNumber account number
    */
   public void setAccountNumber(String accNumber) {
     accountNumber = accNumber;
@@ -55,7 +51,6 @@ public class Accounts extends Thread {
    * Accessor method of Accounts class
    *
    * @return accountType
-   * @param
    */
   public String getAccountType() {
     return accountType;
@@ -64,8 +59,7 @@ public class Accounts extends Thread {
   /**
    * Mutator method of Accounts class
    *
-   * @return
-   * @param accType
+   * @param accType account type
    */
   public void setAccountType(String accType) {
     accountType = accType;
@@ -75,7 +69,6 @@ public class Accounts extends Thread {
    * Accessor method of Accounts class
    *
    * @return firstName
-   * @param
    */
   public String getFirstName() {
     return firstName;
@@ -84,8 +77,7 @@ public class Accounts extends Thread {
   /**
    * Mutator method of Accounts class
    *
-   * @return
-   * @param fName
+   * @param fName firstName
    */
   public void setFirstName(String fName) {
     firstName = fName;
@@ -95,7 +87,6 @@ public class Accounts extends Thread {
    * Accessor method of Accounts class
    *
    * @return lastName
-   * @param
    */
   public String getLastName() {
     return lastName;
@@ -104,8 +95,7 @@ public class Accounts extends Thread {
   /**
    * Mutator method of Accounts class
    *
-   * @return
-   * @param lName
+   * @param lName last name
    */
   public void setLastName(String lName) {
     lastName = lName;
@@ -115,7 +105,6 @@ public class Accounts extends Thread {
    * Accessor method of Accounts class
    *
    * @return balance
-   * @param
    */
   public double getBalance() {
     return balance;
@@ -124,8 +113,7 @@ public class Accounts extends Thread {
   /**
    * Mutator method of Accounts class
    *
-   * @return
-   * @param bal
+   * @param bal balance
    */
   public void setBalance(double bal) {
     balance = bal;

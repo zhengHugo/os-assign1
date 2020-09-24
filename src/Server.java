@@ -27,8 +27,6 @@ public class Server extends Thread {
   /**
    * Constructor method of Client class
    *
-   * @return
-   * @param
    */
   Server() {
     System.out.println("\n Initializing the server ...");
@@ -51,7 +49,6 @@ public class Server extends Thread {
    * Accessor method of Server class
    *
    * @return numberOfTransactions
-   * @param
    */
   public int getNumberOfTransactions() {
     return numberOfTransactions;
@@ -60,8 +57,7 @@ public class Server extends Thread {
   /**
    * Mutator method of Server class
    *
-   * @return
-   * @param nbOfTrans
+   * @param nbOfTrans number of transactions
    */
   public void setNumberOfTransactions(int nbOfTrans) {
     numberOfTransactions = nbOfTrans;
@@ -71,7 +67,6 @@ public class Server extends Thread {
    * Accessor method of Server class
    *
    * @return numberOfAccounts
-   * @param
    */
   public int getNumberOfAccounts() {
     return numberOfAccounts;
@@ -80,8 +75,7 @@ public class Server extends Thread {
   /**
    * Mutator method of Server class
    *
-   * @return
-   * @param nbOfAcc
+   * @param nbOfAcc number of accounts
    */
   public void setNumberOfAccounts(int nbOfAcc) {
     numberOfAccounts = nbOfAcc;
@@ -91,7 +85,6 @@ public class Server extends Thread {
    * Accessor method of Server class
    *
    * @return maxNbAccounts
-   * @param
    */
   public int getmMxNbAccounts() {
     return maxNbAccounts;
@@ -100,8 +93,7 @@ public class Server extends Thread {
   /**
    * Mutator method of Server class
    *
-   * @return
-   * @param nbOfAcc
+   * @param nbOfAcc number of account
    */
   public void setMaxNbAccounts(int nbOfAcc) {
     maxNbAccounts = nbOfAcc;
@@ -110,8 +102,6 @@ public class Server extends Thread {
   /**
    * Initialization of the accounts from an input file
    *
-   * @return
-   * @param
    */
   public void initializeAccounts() {
     Scanner inputStream = null; /* accounts input file stream */
@@ -150,7 +140,7 @@ public class Server extends Thread {
    * Find and return the index position of an account
    *
    * @return account index position or -1
-   * @param accNumber
+   * @param accNumber account number
    */
   public int findAccount(String accNumber) {
     int i = 0;
@@ -164,8 +154,7 @@ public class Server extends Thread {
   /**
    * Processing of the transactions
    *
-   * @return
-   * @param trans
+   * @param trans transaction
    */
   public boolean processTransactions(Transactions trans) {
     int accIndex; /* Index position of account to update */
@@ -184,39 +173,38 @@ public class Server extends Thread {
         objNetwork.transferIn(trans); /* Transfer a transaction from the network input buffer */
 
         accIndex = findAccount(trans.getAccountNumber());
-        /* Process deposit operation */
-        if (trans.getOperationType().equals("DEPOSIT")) {
-          newBalance = deposit(accIndex, trans.getTransactionAmount());
-          trans.setTransactionBalance(newBalance);
-          trans.setTransactionStatus("done");
-
-          System.out.println(
-              "\n DEBUG : Server.processTransactions() - Deposit of "
-                  + trans.getTransactionAmount()
-                  + " in account "
-                  + trans.getAccountNumber());
-        } else
-        /* Process withdraw operation */
-        if (trans.getOperationType().equals("WITHDRAW")) {
-          newBalance = withdraw(accIndex, trans.getTransactionAmount());
-          trans.setTransactionBalance(newBalance);
-          trans.setTransactionStatus("done");
-
-          System.out.println(
-              "\n DEBUG : Server.processTransactions() - Withdrawal of "
-                  + trans.getTransactionAmount()
-                  + " from account "
-                  + trans.getAccountNumber());
-        } else
-        /* Process query operation */
-        if (trans.getOperationType().equals("QUERY")) {
-          newBalance = query(accIndex);
-          trans.setTransactionBalance(newBalance);
-          trans.setTransactionStatus("done");
-
-          System.out.println(
-              "\n DEBUG : Server.processTransactions() - Obtaining balance from account"
-                  + trans.getAccountNumber());
+        switch (trans.getOperationType()) {
+          case "DEPOSIT" -> {
+            /* Process deposit operation */
+            newBalance = deposit(accIndex, trans.getTransactionAmount());
+            trans.setTransactionBalance(newBalance);
+            trans.setTransactionStatus("done");
+            System.out.println(
+                "\n DEBUG : Server.processTransactions() - Deposit of "
+                    + trans.getTransactionAmount()
+                    + " in account "
+                    + trans.getAccountNumber());
+          }
+          case "WITHDRAW" -> {
+            /* Process withdraw operation */
+            newBalance = withdraw(accIndex, trans.getTransactionAmount());
+            trans.setTransactionBalance(newBalance);
+            trans.setTransactionStatus("done");
+            System.out.println(
+                "\n DEBUG : Server.processTransactions() - Withdrawal of "
+                    + trans.getTransactionAmount()
+                    + " from account "
+                    + trans.getAccountNumber());
+          }
+          case "QUERY" -> {
+            /* Process query operation */
+            newBalance = query(accIndex);
+            trans.setTransactionBalance(newBalance);
+            trans.setTransactionStatus("done");
+            System.out.println(
+                "\n DEBUG : Server.processTransactions() - Obtaining balance from account"
+                    + trans.getAccountNumber());
+          }
         }
 
         // while( (objNetwork.getOutBufferStatus().equals("full"))); /* Alternatively,  busy-wait
@@ -272,8 +260,7 @@ public class Server extends Thread {
   /**
    * Processing of a query operation in an account
    *
-   * @return balance
-   * @param i
+   * @param i account index
    */
   public double query(int i) {
     double curBalance; /* Current account balance */
@@ -303,8 +290,6 @@ public class Server extends Thread {
   /**
    * Code for the run method
    *
-   * @return
-   * @param
    */
   public void run() {
     Transactions trans = new Transactions();

@@ -38,8 +38,7 @@ public class Network extends Thread {
   /**
    * Constructor of the Network class
    *
-   * @return
-   * @param
+   * @param context network context
    */
   Network(String context) {
     int i;
@@ -161,7 +160,7 @@ public class Network extends Thread {
   }
 
   /**
-   * Accessor method of Netowrk class
+   * Accessor method of Network class
    *
    * @return inBufferStatus
    */
