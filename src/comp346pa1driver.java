@@ -8,7 +8,7 @@
  *
  * @author Kerly Titus
  */
-public class comp546pa1driver {
+public class comp346pa1driver {
 
     /** 
      * main class
