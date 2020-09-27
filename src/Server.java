@@ -1,3 +1,4 @@
+import java.time.Instant;
 import java.util.Scanner;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -36,7 +37,7 @@ public class Server extends Thread {
     transaction = new Transactions();
     account = new Accounts[maxNbAccounts];
     objNetwork = new Network("server");
-    System.out.println("\n Inializing the Accounts database ...");
+    System.out.println("\n Initializing the Accounts database ...");
     initializeAccounts();
     System.out.println("\n Connecting server to network ...");
     if (!(objNetwork.connect(objNetwork.getServerIP()))) {
@@ -162,7 +163,9 @@ public class Server extends Thread {
 
     /* Process the accounts until the client disconnects */
     while ((!objNetwork.getClientConnectionStatus().equals("disconnected"))) {
-      /* while( (objNetwork.getInBufferStatus().equals("empty"))); */
+       if((objNetwork.getInBufferStatus().equals("empty"))){
+         Thread.yield();
+       }
       /* Alternatively, busy-wait until the network input buffer is available */
 
       if (!objNetwork.getInBufferStatus().equals("empty")) {
@@ -206,9 +209,12 @@ public class Server extends Thread {
                     + trans.getAccountNumber());
           }
         }
+        // Alternatively,  busy-wait
+        // until the network output buffer is available
 
-        // while( (objNetwork.getOutBufferStatus().equals("full"))); /* Alternatively,  busy-wait
-        // until the network output buffer is available */
+         while( (objNetwork.getOutBufferStatus().equals("full"))){
+           Thread.yield();
+         }
 
         System.out.println(
             "\n DEBUG : Server.processTransactions() - transferring out account "
@@ -299,12 +305,15 @@ public class Server extends Thread {
         "\n DEBUG : Server.run() - starting server thread "
             + objNetwork.getServerConnectionStatus());
 
-    /* Implement the code for the run method */
+    serverStartTime = Instant.now().toEpochMilli();
+    processTransactions(trans);
+    serverEndTime = Instant.now().toEpochMilli();
 
     System.out.println(
         "\n Terminating server thread - "
             + " Running time "
             + (serverEndTime - serverStartTime)
             + " milliseconds");
+    objNetwork.setServerConnectionStatus("disconnected");
   }
 }
